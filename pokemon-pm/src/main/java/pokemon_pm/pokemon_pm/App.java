@@ -60,15 +60,16 @@ public class App
 				break;
 
 			default:
-				break; // returns false due to being in the same position
+				break;
 			}
-		}catch (IndexOutOfBoundsException e) {
+		}catch (IndexOutOfBoundsException e) { // end of input
 			return 0;
 		}
+		++counter;
 		if(!visited.contains(currentPosition)) {
 			visited.add(new MyPair(currentPosition.getX(),currentPosition.getY()));
-			return 1 + getValueFromDirections(sequence, ++counter, visited, currentPosition);
+			return 1 + getValueFromDirections(sequence, counter, visited, currentPosition);
 		}
-		return getValueFromDirections(sequence, ++counter, visited, currentPosition);
+		return getValueFromDirections(sequence, counter, visited, currentPosition);
 	}
 }
