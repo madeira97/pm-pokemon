@@ -83,6 +83,9 @@
                 <version>1.2.1</version>
                 <configuration>
                     <mainClass>pokemon_pm.pokemon_pm.App</mainClass>
+                    <arguments>
+                        <argument>movement_sequence</argument>
+                    </arguments>
                 </configuration>
             </plugin>
       </plugins>

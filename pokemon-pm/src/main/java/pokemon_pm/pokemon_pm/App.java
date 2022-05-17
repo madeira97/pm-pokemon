@@ -10,8 +10,9 @@ public class App
 	public static void main( String[] args )
 	{
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Insert movements sequence:");
-		String input = sc.next().toUpperCase();
+		System.out.println("Movements sequence is: " + args[0]);
+		
+		String input = args[0];
 		int numberPokemons = getNumberPokemons(input);
 		System.out.println("Number of pokemons is : " +numberPokemons);
 		sc.close();
