@@ -13,7 +13,7 @@ public class App
 			
 			String input = args[0];
 			int numberPokemons = getNumberPokemons(input);
-			System.out.println("Number of pokemons is : " +numberPokemons);
+			System.out.println(numberPokemons);
 		}else
 			System.err.println("Wrong input");
 		
