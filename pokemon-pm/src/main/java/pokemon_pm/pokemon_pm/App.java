@@ -10,13 +10,13 @@ public class App
 	{
 		if(args.length == 1) {
 			System.out.println("Movements sequence is: " + args[0]);
-			
+
 			String input = args[0];
 			int numberPokemons = getNumberPokemons(input);
 			System.out.println(numberPokemons);
 		}else
 			System.err.println("Wrong input");
-		
+
 	}
 
 	/**
@@ -25,16 +25,12 @@ public class App
 	 * @return number of Pokemons caught
 	 */
 	public static int getNumberPokemons(String input) {
-		int counter = 1;
 		MyPair currentPosition = new MyPair(0, 0);
 		List<MyPair> visited = new ArrayList<>();
 		visited.add(new MyPair(0, 0));
 		input = input.toUpperCase();
-		for (int i = 0; i < input.length(); i++) {
-			counter+= (getValueFromDirection(input.charAt(i), visited, currentPosition) ? 1 : 0);
-		}
-
-		return counter;
+		int i = 0;
+		return 1+ getValueFromDirections(input,i, visited, currentPosition);
 	}
 
 	/**
@@ -44,32 +40,35 @@ public class App
 	 * @param currentPosition ash's position
 	 * @return whether new position has pokemon or not
 	 */
-	private static boolean getValueFromDirection(char direction, List<MyPair> visited, MyPair currentPosition) {
-		switch (direction) {
-		case 'N':
-			currentPosition.incrementDirectionVertical();
-			break;
+	private static int getValueFromDirections(String sequence, int counter, List<MyPair> visited, MyPair currentPosition) {
+		try {
+			switch (sequence.charAt(counter)) {
+			case 'N':
+				currentPosition.incrementDirectionVertical();
+				break;
 
-		case 'S':
-			currentPosition.decrementDirectionVertical();
-			break;
+			case 'S':
+				currentPosition.decrementDirectionVertical();
+				break;
 
-		case 'E':
-			currentPosition.incrementDirectionHorizontal();
-			break;
+			case 'E':
+				currentPosition.incrementDirectionHorizontal();
+				break;
 
-		case 'O':
-			currentPosition.decrementDirectionHorizontal();
-			break;
-			
-		default:
-			break; // returns false due to being in the same position
+			case 'O':
+				currentPosition.decrementDirectionHorizontal();
+				break;
+
+			default:
+				break; // returns false due to being in the same position
+			}
+		}catch (IndexOutOfBoundsException e) {
+			return 0;
 		}
-		
-		if(visited.contains(currentPosition)) {
-			return false;
-		}else 
-			return visited.add(new MyPair(currentPosition.getX(),currentPosition.getY()));
-		
+		if(!visited.contains(currentPosition)) {
+			visited.add(new MyPair(currentPosition.getX(),currentPosition.getY()));
+			return 1 + getValueFromDirections(sequence, ++counter, visited, currentPosition);
+		}
+		return getValueFromDirections(sequence, ++counter, visited, currentPosition);
 	}
 }
