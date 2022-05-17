@@ -4,7 +4,7 @@ To run program:
 
 	Import as maven;
 	
-	build with goal "exec:java -Dexec.args='sequence'"
+	build with goal "exec:java -Dexec.args='user input'"
 
 To test program;
 
