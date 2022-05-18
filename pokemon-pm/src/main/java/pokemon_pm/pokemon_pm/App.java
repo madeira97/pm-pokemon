@@ -1,9 +1,6 @@
 package pokemon_pm.pokemon_pm;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
+import java.util.HashSet;
 
 public class App 
 {
@@ -11,7 +8,7 @@ public class App
 	{
 		if(args.length == 1) {
 			System.out.println("Movements sequence is: " + args[0]);
-			
+
 			String input = args[0];
 			int numberPokemons = getNumberPokemons(input);
 			System.out.println("Number of pokemons is : " +numberPokemons);
@@ -26,16 +23,15 @@ public class App
 	 * @return number of Pokemons caught
 	 */
 	public static int getNumberPokemons(String input) {
-		int counter = 1;
+		HashSet<MyPair> visited = new HashSet<>();
 		MyPair currentPosition = new MyPair(0, 0);
-		List<MyPair> visited = new ArrayList<>();
 		visited.add(new MyPair(0, 0));
 		input = input.toUpperCase();
 		for (int i = 0; i < input.length(); i++) {
-			counter+= (getValueFromDirection(input.charAt(i), visited, currentPosition) ? 1 : 0);
+			getValueFromDirection(input.charAt(i), visited, currentPosition);
 		}
 
-		return counter;
+		return visited.size();
 	}
 
 	/**
@@ -43,9 +39,9 @@ public class App
 	 * @param direction one of the cardinal points
 	 * @param visited list of positions already visited
 	 * @param currentPosition ash's position
-	 * @return whether new position has pokemon or not
+	 * @return result of adding position to set
 	 */
-	private static boolean getValueFromDirection(char direction, List<MyPair> visited, MyPair currentPosition) {
+	private static boolean getValueFromDirection(char direction, HashSet<MyPair> visited, MyPair currentPosition) {
 		switch (direction) {
 		case 'N':
 			currentPosition.incrementDirectionVertical();
@@ -62,15 +58,11 @@ public class App
 		case 'O':
 			currentPosition.decrementDirectionHorizontal();
 			break;
-			
+
 		default:
 			break; // returns false due to being in the same position
 		}
-		
-		if(visited.contains(currentPosition)) {
-			return false;
-		}else 
-			return visited.add(new MyPair(currentPosition.getX(),currentPosition.getY()));
-		
+
+		return visited.add(new MyPair(currentPosition.getX(),currentPosition.getY()));
 	}
 }
