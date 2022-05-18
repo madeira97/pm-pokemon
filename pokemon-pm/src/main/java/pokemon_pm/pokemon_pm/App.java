@@ -10,7 +10,7 @@ public class App
 	{
 		if(args.length == 1) {
 			System.out.println("Movements sequence is: " + args[0]);
-
+			
 			String input = args[0];
 			int numberPokemons = getNumberPokemons(input);
 			System.out.println("Number of pokemons is : " +numberPokemons);
